@@ -1,0 +1,425 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>计算机组织与体系结构课程设计 | Ordirehv's Blog</title><meta name="author" content="Ordirehv"><meta name="copyright" content="Ordirehv"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="记录一下计组课设。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机组织与体系结构课程设计">
+<meta property="og:url" content="https://0rd1r3hv.github.io/posts/sys-toy-experiment/">
+<meta property="og:site_name" content="Ordirehv&#39;s Blog">
+<meta property="og:description" content="记录一下计组课设。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0rd1r3hv.github.io/img/avatar.jpg">
+<meta property="article:published_time" content="2024-10-20T13:45:50.000Z">
+<meta property="article:modified_time" content="2025-04-18T08:54:24.768Z">
+<meta property="article:author" content="Ordirehv">
+<meta property="article:tag" content="ASM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0rd1r3hv.github.io/img/avatar.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://0rd1r3hv.github.io/posts/sys-toy-experiment/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":false,"highlightHeightLimit":300},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '计算机组织与体系结构课程设计',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-04-18 16:54:24'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: linear-gradient(180deg, rgba(2,0,36,0.5) 90%, rgba(2,0,36,0) 100%);"><nav id="nav"><span id="blog-info"><a href="/" title="Ordirehv's Blog"><span class="site-name">Ordirehv's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 链接</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">计算机组织与体系结构课程设计</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-10-20T13:45:50.000Z" title="发表于 2024-10-20 21:45:50">2024-10-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-04-18T08:54:24.768Z" title="更新于 2025-04-18 16:54:24">2025-04-18</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AF%BE%E5%86%85%E5%AE%9E%E9%AA%8C/">课内实验</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AF%BE%E5%86%85%E5%AE%9E%E9%AA%8C/%E8%AE%A1%E7%BB%84/">计组</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="计算机组织与体系结构课程设计"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="计组课设报告"><a href="#计组课设报告" class="headerlink" title="计组课设报告"></a>计组课设报告</h1><h2 id="实验目的"><a href="#实验目的" class="headerlink" title="实验目的"></a>实验目的</h2><ol>
+<li><p>深入理解基本模型计算机的功能、组成知识。</p>
+</li>
+<li><p>深入学习计算机各类典型指令的执行流程。</p>
+</li>
+<li><p>学习微程序控制器的设计过程和相关技术，掌握LPM_ROM的配置方法。</p>
+</li>
+<li><p>在掌握部件单元电路实验的基础上，进一步将单元电路组成系统，构造一台基本模型计算机。</p>
+</li>
+<li><p>定义五条机器指令，并编写相应的微程序，上机调试，掌握计算机整机概念。掌握微程序的设计方法，学会编写二进制微指令代码表。</p>
+</li>
+<li><p>通过熟悉较完整的计算机的设计，全面了解并掌握微程序控制方式计算机的设计方法。</p>
+</li>
+</ol>
+<h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><ul>
+<li>机房PC</li>
+<li>Quartus II</li>
+<li>计算机组成原理试验箱</li>
+</ul>
+<h2 id="实验原理"><a href="#实验原理" class="headerlink" title="实验原理"></a>实验原理</h2><h3 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h3><p>在部件实验过程中，控制信号是⼈为模拟产⽣的。⽽本实验将能在微程序控制器的作用下⾃动产⽣一系列控制信号，从而实现指令对应的特定功能。实验中，数据通路的控制由微程序控制器完成，整个指令周期由微指令组成的序列来完成，完成了指令到微程序的对应。</p>
+<h3 id="指令格式"><a href="#指令格式" class="headerlink" title="指令格式"></a>指令格式</h3><ol>
+<li><p>指令格式</p>
+<p>采用寄存器直接寻址方式，其格式如下：</p>
+<img src="/posts/sys-toy-experiment/%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F.png" class="" title="指令格式">
+<p>其中<code>OP-CODE</code>为操作码，<code>rs</code>为源寄存器，<code>rd</code>为目的寄存器，<code>00</code>、<code>01</code>、<code>10</code>分别对应<code>R0</code>、<code>R1</code>、<code>R2</code>。</p>
+</li>
+<li><p>数据通路框图</p>
+<img src="/posts/sys-toy-experiment/%E6%95%B0%E6%8D%AE%E9%80%9A%E8%B7%AF.png" class="" title="数据通路">
+</li>
+<li><p>微指令格式</p>
+<img src="/posts/sys-toy-experiment/24%E4%BD%8D%E5%BE%AE%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%B9%89.png" class="" title="24位微代码定义">
+<p>微指令各字段功能如下：</p>
+<ul>
+<li><p><code>S3</code>-<code>S0</code>、<code>M</code>、<code>Cn</code>：指示<code>ALU</code>的操作。注意：<code>M</code>为<code>0</code>代表算术操作，为<code>1</code>代表逻辑操作；<code>Cn</code>为<code>0</code>代表无进位，为<code>1</code>代表有进位。<code>ALU</code>的功能表如下：</p>
+<img src="/posts/sys-toy-experiment/ALU%E5%8A%9F%E8%83%BD.png" class="" title="ALU功能">
+</li>
+<li><p><code>WE</code>：<code>RAM</code>控制信号。为<code>0</code>时配合<code>A9</code>-<code>A8</code>的<code>01</code>控制<code>RAM</code>读，为<code>1</code>时配合<code>A9</code>-<code>A8</code>的<code>11</code>控制<code>RAM</code>写。</p>
+</li>
+<li><p><code>A9</code>-<code>A8</code>：<code>00</code>、<code>01</code>、<code>10</code>分别代表SW_B、RAM、LED的选通信号，<code>11</code>代表无效。</p>
+</li>
+<li><p><code>A</code>、<code>B</code>、<code>C</code>：分别产生输入选通信号、输出选通信号、<code>P(1)</code>-<code>P(4)</code>和<code>LDPC</code>信号。具体功能如下表所示：</p>
+<img src="/posts/sys-toy-experiment/%E5%AD%97%E6%AE%B5%E5%8A%9F%E8%83%BD.png" class="" title="字段功能">
+<p>其中：</p>
+<ul>
+<li><p><code>LD..</code>代表相应寄存器的输入选通信号；</p>
+</li>
+<li><p><code>LDPC</code>在<code>A</code>无效时控制程序计数器<code>PC</code>自增，在<code>A</code>字段为<code>LOAD</code>时将总线数据输入<code>PC</code>；</p>
+</li>
+<li><p><code>..-B</code>代表将对应部件的数据附加到总线上。</p>
+</li>
+</ul>
+</li>
+<li><p><code>uA5</code>-<code>uA0</code>：微程序控制器的微地址输出信号，是下一条要执行的微指令的微地址。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h2><h3 id="指令设计"><a href="#指令设计" class="headerlink" title="指令设计"></a>指令设计</h3><p>本次设计完成如下8条指令：</p>
+<ul>
+<li><p><code>MOV BYTE PTR [OP2], [OP1]</code>：<code>00 OP1 OP2</code></p>
+<p>将内存<code>[OP1]</code>处一字节复制至<code>[OP2]</code>处。</p>
+<p>可以通过将<code>[OP1]</code>处一字节内容加载到<code>R0</code>，再将<code>R0</code>内容输入到内存<code>[OP2]</code>处实现。</p>
+</li>
+<li><p><code>XCHG R0, [OP1]</code>：<code>10 OP1</code></p>
+<p>交换寄存器<code>R0</code>和内存<code>[OP1]</code>处开始一字节的内容。</p>
+<p>可以通过将<code>R0</code>内容加载到<code>DR1</code>，将内存<code>[OP1]</code>处开始一字节加载到<code>R0</code>，最后将<code>DR1</code>的内容加载到<code>[OP1]</code>处实现。</p>
+</li>
+<li><p><code>CLR R0</code>：<code>20</code></p>
+<p>清零寄存器<code>R0</code>。</p>
+<p>可以利用<code>ALU</code>输出<code>0</code>并加载到<code>R0</code>实现。</p>
+</li>
+<li><p><code>PUSH BYTE PTR [OP1]</code>：<code>30 OP1</code></p>
+<p>将内存<code>[OP1]</code>处开始的一字节压入栈中。</p>
+<p>需要用内存<code>[0FEh]</code>处模拟<code>SP</code>。先读取<code>[OP1]</code>处一字节存到<code>DR2</code>，再利用<code>ALU</code>运算输出<code>0FEh</code>附加到<code>AR</code>进而读取出<code>SP</code>，然后将其加载到<code>DR1</code>，再用<code>ALU</code>输出<code>DR1-1</code>写入内存，最后将<code>DR1-1</code>附加到<code>AR</code>，将<code>DR2</code>写入内存。</p>
+</li>
+<li><p><code>POP BYTE PTR [OP1]</code>：<code>40 OP1</code></p>
+<p>将栈顶开始一字节内容弹出到内存<code>[OP1]</code>处。</p>
+<p>与<code>PUSH</code>相似。只不过要把<code>DR1-1</code>改为<code>DR1+1</code>，而且操作数应当在最后读取，最后一步写入内存可以复用。</p>
+</li>
+<li><p><code>CALL [OP1]</code>：<code>50 OP1</code></p>
+<p>将下一条指令的地址压入栈中，并将<code>PC</code>的值修改为内存<code>[OP1]</code>处的内容。</p>
+<p>取操作数后将<code>PC</code>输入到<code>DR2</code>，然后复用<code>PUSH</code>后边的一些操作即可。</p>
+</li>
+<li><p><code>RET</code>：<code>60</code></p>
+<p>将栈顶内容弹出给<code>PC</code>。</p>
+<p>和<code>POP</code>相似，但最后要把<code>DR2</code>写入<code>PC</code>。</p>
+</li>
+<li><p><code>JMP [OP1]</code>：<code>70 OP1</code></p>
+<p>将<code>PC</code>的值修改为内存<code>[OP1]</code>处的内容。</p>
+<p>读取内存<code>[OP1]</code>处的一字节并输入到<code>PC</code>即可。</p>
+</li>
+</ul>
+<p>这套指令主要模拟了栈的行为和函数调用与返回的行为。</p>
+<p>设计的指令用<code>RAM</code>的底部两字节模拟<code>BP</code>和<code>SP</code>寄存器，记录当前栈帧的基址和栈顶地址。</p>
+<p>由于<code>ROM</code>大小不够，没有单独设计<code>PUSH BP</code>、<code>MOV BP, SP</code>、<code>LEAVE</code>，而是分别用<code>PUSH BYTE PTR [0FFh]</code>、<code>MOV BYTE PTR [0FFh], [0FEh]</code>、<code>MOV BYTE PTR [0FFh], [0FEh]; POP BYTE PTR [0FFh]</code>代替。</p>
+<h3 id="微程序流程图"><a href="#微程序流程图" class="headerlink" title="微程序流程图"></a>微程序流程图</h3><p>通过相应微操作控制CPU数据流，可设计指令写入<code>ROM</code>中并整理出微程序流程图如下：</p>
+<pre class="mermaid">graph TB
+START(运行微程序)-->
+01h[01h 01ED82\nPC->AR, PC+1]-->
+02h[02h 00C048\nRAM->BUS, BUS->IR]-->P1S{"P(1)"}
+P1S-->MOV
+P1S-->XCHG
+P1S-->CLR
+P1S-->JMP
+
+subgraph  
+MOV(MOV)-->
+08h[08h 01ED98\nPC->AR, PC+1]-->
+18h[18h 00E019\nRAM->BUS, BUS->AR]-->
+19h[19h 00901A\nRAM->BUS, BUS->R0]-->
+1Ah[1Ah 01ED9B\nPC->AR, PC+1]-->
+1Bh[1Bh 00E01C\nRAM->BUS, BUS->AR]-->
+1Ch[1Ch 038201\nR0->BUS, BUS->RAM]-->
+END0>01h]
+end
+
+subgraph  
+XCHG(XCHG)-->
+09h[09h 01EDA0\nPC->AR, PC+1]-->
+20h[20h 00E021\nRAM->BUS, BUS->AR]-->
+21h[21h 01A222\nR0->DR1]-->
+22h[22h 009023\nRAM->BUS, BUS->R0]-->
+23h[23h FB8A01\nDR1->BUS, BUS->RAM]-->
+END1>01h]
+end
+
+subgraph  
+CLR(CLR)-->
+0Ah[0Ah 399A01\n0->R0]-->
+END2>01h]
+end
+
+subgraph  
+JMP(JMP)-->
+0Fh[0Fh 01ED9D\nPC->AR, PC+1]-->
+1Dh[1Dh 00E01E\nRAM->BUS, BUS->AR]-->
+1Eh[1Eh 00D181\nRAM->BUS, BUS->PC]-->
+END3>01h]
+end</pre>
+
+<pre class="mermaid">graph TB
+START(运行微程序)-->
+01h[01h 01ED82\nPC->AR, PC+1]-->
+02h[02h 00C048\nRAM->BUS, BUS->IR]-->P1S{"P(1)"}
+
+P1S-->PUSH
+P1S-->POP
+P1S-->CALL
+P1S-->RET
+
+subgraph  
+PUSH(PUSH)-->
+0Bh[0Bh 01EDA8\nPC->AR, PC+1]-->
+28h[28h 00E029\nRAM->BUS, BUS->AR]-->
+29h[29h 00B02A\nRAM->BUS, BUS->DR2]-->
+2Ah[2Ah C99A2B\n1->R0]-->
+2Bh[2Bh 01A22C\nR0->DR1]-->
+2Ch[2Ch 09EA2D\n~DR1->AR]-->
+2Dh[2Dh 00A02E\nRAM->BUS, BUS->DR1]-->
+2Eh[2Eh F78A2F\nDR1-1->BUS, BUS->RAM]-->
+2Fh[2Fh F5EA30\nDR1-1->BUS, BUS->AR]-->
+30h[30h AB8A01\nDR2->BUS, BUS->RAM]-->
+END0>01h]
+end
+
+subgraph  
+POP(POP)-->
+0Ch[0Ch C99A31\n1->R0]-->
+31h[31h 01A232\nR0->DR1]-->
+32h[32h 09EA33\n~DR1->AR]-->
+33h[33h 00A034\nRAM->BUS, BUS->DR1]-->
+34h[34h 078A04\nDR1+1->BUS, BUS->RAM]-->
+04h[04h F9EA35\nDR1->AR]-->
+35h[35h 00B036\nRAM->BUS, BUS->DR2]-->
+36h[36h 01EDB7\nPC->AR, PC+1]-->
+37h[37h 00E030\nRAM->BUS, BUS->AR]-->
+30h
+end
+
+subgraph  
+CALL(CALL)-->
+0Dh[0Dh 01EDB8\nPC->AR, PC+1]-->
+38h[38h 01BC39\nPC->DR2]-->
+39h[39h 00E03A\nRAM->BUS, BUS->AR]-->
+3Ah[3Ah 00D1AA\nRAM->PC]-->
+2Ah
+end
+
+subgraph  
+RET(RET)-->
+0Eh[0Eh C99A3B\n1->R0]-->
+3Bh[3Bh 01A23C\nR0->DR1]-->
+3Ch[3Ch 09EA3D\n~DR1->AR]-->
+3Dh[3Dh 00A03E\nRAM->BUS, BUS->DR1]-->
+3Eh[3Eh 078A3F\nDR1+1->BUS, BUS->RAM]-->
+3Fh[3Fh F9EA05\nDR1->AR]-->
+05h[05h 00B003\nRAM->BUS, BUS->DR2]-->
+03h[03h A9DB81\nDR2->PC]-->
+END3>01h]
+end</pre>
+
+<pre class="mermaid">graph TB
+START(控制台微程序)-->
+00h[00h 018110\nR0->DR1]-->
+P4S{"P(4)"}
+
+P4S --> KWE
+P4S --> KRD
+P4S --> RP
+
+subgraph  
+KWE("KWE(01b)")-->
+11h[11h 01ED94\nPC->AR, PC+1]-->
+14h[14h 062011\nSW->BUS, BUS->RAM]-->11h
+end
+
+subgraph  
+KRD("KRD(00b)")-->
+10h[10h 01ED92\nPC->AR, PC+1]-->
+12h[12h 00A010\nSW->BUS, BUS->RAM]-->10h
+end
+
+subgraph  
+RP("RP(11b)")-->
+13h[13h 008001\nPC->AR, PC+1]-->
+END0>01h]
+end</pre>
+
+<h3 id="测试程序"><a href="#测试程序" class="headerlink" title="测试程序"></a>测试程序</h3><p>在<code>RAM</code>中编写测试程序如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">00h:</span><br><span class="line">  50 20    - CALL [20h]</span><br><span class="line">  70 26    - JMP [26h]</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">08h:</span><br><span class="line">  30 FF    - PUSH BP</span><br><span class="line">  00 FE FF - MOV BP, SP</span><br><span class="line">  30 21    - PUSH BYTE PTR [21h]</span><br><span class="line">  30 22    - PUSH BYTE PTR [22h]</span><br><span class="line">  30 23    - PUSH BYTE PTR [23h]</span><br><span class="line">  30 24    - PUSH BYTE PTR [24h]</span><br><span class="line">  20       - CLR R0</span><br><span class="line">  10 25    - XCHG R0, [25h]</span><br><span class="line">  00 FF FE - MOV SP, BP</span><br><span class="line">  40 FF    - POP BP</span><br><span class="line">  60       - RET</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">20h:</span><br><span class="line">  08 CA FE BA BE CB 00</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">FEh:</span><br><span class="line">  FE FE    - (SP, BP)</span><br></pre></td></tr></table></figure>
+<p>测试程序是一个无限循环，循环中用调用一个函数，在函数中先保存了调用者的栈帧，然后将一些内容压栈，将<code>R0</code>清零，最后恢复调用者栈帧并返回。</p>
+<h2 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h2><p>通过这次课程设计，我对CPU的工作有了更加深入的认识。在设计指令的过程中，我对计算机的内部构造有了更为直观的感受，控制单元和数据通路让我认识到硬件和软件之间的紧密联系。</p>
+<p>虽然课堂上学习了很多理论知识，但在实际操作和设计中我才真正意识到理论与实践的差异。在设计和仿真的过程中，很多细节问题都是理论中未提到的，需要通过实验和调试才能发现和解决。这让我更深刻地体会到计算机组成原理不仅仅是理论知识的积累，更需要大量的实践和经验。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://0rd1r3hv.github.io">Ordirehv</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://0rd1r3hv.github.io/posts/sys-toy-experiment/">https://0rd1r3hv.github.io/posts/sys-toy-experiment/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://0rd1r3hv.github.io" target="_blank">Ordirehv's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ASM/">ASM</a></div><div class="post_share"></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Ordirehv</div><div class="author-info__description">Maho Shojo creeping in CS.</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">8</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/0rd1r3hv" target="_blank" title="Github"><i class="fab fa-github" style="color: #4a7dbe;"></i></a><a class="social-icon" href="mailto:ord1r3hv@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%A1%E7%BB%84%E8%AF%BE%E8%AE%BE%E6%8A%A5%E5%91%8A"><span class="toc-number">1.</span> <span class="toc-text">计组课设报告</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%9B%AE%E7%9A%84"><span class="toc-number">1.1.</span> <span class="toc-text">实验目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.</span> <span class="toc-text">实验环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.</span> <span class="toc-text">实验原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-number">1.3.1.</span> <span class="toc-text">基本原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.3.2.</span> <span class="toc-text">指令格式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4"><span class="toc-number">1.4.</span> <span class="toc-text">实验步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.4.1.</span> <span class="toc-text">指令设计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E7%A8%8B%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE"><span class="toc-number">1.4.2.</span> <span class="toc-text">微程序流程图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.4.3.</span> <span class="toc-text">测试程序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E6%80%BB%E7%BB%93"><span class="toc-number">1.5.</span> <span class="toc-text">实验总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/getting-your-phone-unlocked/" title="Getting Your Phone Unlocked">Getting Your Phone Unlocked</a><time datetime="2025-04-18T08:09:01.000Z" title="发表于 2025-04-18 16:09:01">2025-04-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/os-toy-lab-1/" title="操作系统课设实验一">操作系统课设实验一</a><time datetime="2024-10-29T15:06:19.000Z" title="发表于 2024-10-29 23:06:19">2024-10-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/sys-toy-experiment/" title="计算机组织与体系结构课程设计">计算机组织与体系结构课程设计</a><time datetime="2024-10-20T13:45:50.000Z" title="发表于 2024-10-20 21:45:50">2024-10-20</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/moectf-2024-reverse/" title="MoeCTF 2024 Reverse">MoeCTF 2024 Reverse</a><time datetime="2024-10-10T13:11:47.000Z" title="发表于 2024-10-10 21:11:47">2024-10-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/posts/rth-roots-over-finite-fields/" title="何以求根">何以求根</a><time datetime="2024-09-06T14:31:34.000Z" title="发表于 2024-09-06 22:31:34">2024-09-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: rgba(0,0,0,0)"><div id="footer-wrap"></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@4.13.0/source/js/utils.min.js"></script><script src="https://cdn.jsdelivr.net/npm/hexo-theme-butterfly@4.13.0/source/js/main.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
